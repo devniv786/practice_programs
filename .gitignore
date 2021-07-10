@@ -1,0 +1,4 @@
+.idea
+
+#Exclude .txt files
+.txt
