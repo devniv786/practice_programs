@@ -77,3 +77,221 @@ class Demo:
 
 d = Demo(50)
 print(d.__dict__)
+
+
+class A:
+    def __init__(self, i=0):
+        self.i = i
+        # pass
+
+    def hello(self):
+        print("Hello world")
+
+class B(A):
+    def __init__(self, j =0):
+        self.j = j
+
+b = B()
+print(b.j)
+print(b.__dir__())
+a = A()
+print(b.hello())
+print(b.i)
+
+#What will be the output ?
+data = [2, 3, 4]
+temp = [[x for x in [data]] for x in range(3)]
+print(temp)
+
+# Returning class objects
+
+def sequence_class(immutable:bool):
+    if immutable:
+        cls = tuple
+    else:
+        cls = list
+
+    return cls
+
+seq = sequence_class(immutable=True)
+seq1 = sequence_class(immutable=False)
+print(seq('Nivesh'))
+print(seq1('Nivesh'))
+
+#Detecting callable objects
+
+def is_even(x):
+    return x % 2 == 0
+
+callable(is_even())
+is_odd = lambda x: x%2 == 1
+callable(is_odd())
+callable(list)
+
+#nonlocal
+
+message = 'global'
+
+def enclosing():
+    message = 'enclosing'
+
+    def local():
+        nonlocal message
+        message = 'local'
+    print('Enclosing message:',message)
+    local()
+    print('Enclosing message:', message)
+
+print('Global message:', message)
+enclosing()
+print('Global message:', message)
+
+#Multiple decorators
+
+def escape_unicode(f):
+    def wrap(*args, **kwargs):
+        x = f(*args, **kwargs)
+        return x.encode('unicode-escape').decode('ascii')
+    return wrap
+
+class Tracer:
+    def __init__(self):
+        self.enabled = True
+    def __call__(self, f):
+        def wrap(*args, **kwargs):
+            if self.enabled:
+                print('Calling {}'.format(f))
+            return f(*args, **kwargs)
+        return wrap
+
+tracer = Tracer()
+
+@tracer
+@escape_unicode
+def norwegian_island_maker(name):
+    return name + 'oy'
+
+#Map with multiple iterables
+list(map(lambda x,y,z: x+y+z, [1,2,3],[1,2,3],[1,2,3]))
+
+#Multiple if-clauses comprehensions
+values = [x/(x-y) for x in range(100) if x > 50 for y in range(100) if x - y !=0]
+#Equivalent for loop code
+values = []
+for x in range(100):
+    if x > 50:
+        for y in range(100):
+            if x - y !=0:
+                values.append(x/(x-y))
+print(values)
+
+
+#Decimal module
+from decimal import Decimal
+
+
+class A:
+    def __init__(self,age):
+        self.age = age
+
+a = A(15)
+a1 = A(25)
+
+l = [a1,a]
+print(l)
+
+
+class A:
+    pass
+class B(A):
+    pass
+class C(A,B):
+    def print(self):
+        print("Hello")
+c = C()
+c.print()
+
+# Abstract classes - cannot create an instance of an abstract class
+
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    @abstractmethod
+    def move(self):
+        pass
+
+
+class Human(Animal):
+    def move(self):
+        print("I can walk and run")
+
+
+class Snake(Animal):
+    def move(self):
+        print("I can crawl")
+
+
+class Dog(Animal):
+    def move(self):
+        print("I can bark")
+
+
+class Lion(Animal):
+    def move(self):
+        print("I can roar")
+
+
+c = Animal()
+
+# Abstract class example
+
+from abc import ABC, abstractmethod
+
+
+class Polygon(ABC):
+
+    @abstractmethod
+    def noofsides(self):
+        pass
+
+
+class Triangle(Polygon):
+
+    # overriding abstract method
+    def noofsides(self):
+        print("I have 3 sides")
+
+
+class Pentagon(Polygon):
+
+    # overriding abstract method
+    def noofsides(self):
+        print("I have 5 sides")
+
+
+class Hexagon(Polygon):
+
+    # overriding abstract method
+    def noofsides(self):
+        print("I have 6 sides")
+
+
+class Quadrilateral(Polygon):
+
+    # overriding abstract method
+    def noofsides(self):
+        print("I have 4 sides")
+
+
+# Driver code
+R = Triangle()
+R.noofsides()
+
+K = Quadrilateral()
+K.noofsides()
+
+R = Pentagon()
+R.noofsides()
+
+K = Hexagon()
+K.noofsides()

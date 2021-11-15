@@ -1,0 +1,4 @@
+Can we have immutable objects as keys of a dictionary ?
+Deep & shallow copy ?
+Find index of a value in a list
+In place & out of place sorting and reversing a list
