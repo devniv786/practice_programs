@@ -136,15 +136,15 @@ def enclosing():
     message = 'enclosing'
 
     def local():
-        nonlocal message
+        #nonlocal message
         message = 'local'
     print('Enclosing message:',message)
     local()
     print('Enclosing message:', message)
 
-print('Global message:', message)
+#print('Global message:', message)
 enclosing()
-print('Global message:', message)
+#print('Global message:', message)
 
 #Multiple decorators
 
@@ -295,3 +295,19 @@ R.noofsides()
 
 K = Hexagon()
 K.noofsides()
+
+
+def f():
+    yield 10
+    return 20
+
+g = f()
+print(next(g))
+print(next(g))
+
+#Find 3 largest and smallest numbers in a list
+
+import heapq
+test_scores = [51, 88, 22, 67, 99, 100, 87, 75]
+print(heapq.nsmallest(3, test_scores))
+print(heapq.nlargest(3, test_scores))
