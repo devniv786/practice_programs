@@ -1,3 +1,4 @@
+import itertools
 from itertools import groupby
 from collections import defaultdict
 
@@ -123,9 +124,9 @@ print(seq1('Nivesh'))
 def is_even(x):
     return x % 2 == 0
 
-callable(is_even())
+callable(is_even(2))
 is_odd = lambda x: x%2 == 1
-callable(is_odd())
+callable(is_odd(2))
 callable(list)
 
 #nonlocal
@@ -136,7 +137,7 @@ def enclosing():
     message = 'enclosing'
 
     def local():
-        #nonlocal message
+        nonlocal message
         message = 'local'
     print('Enclosing message:',message)
     local()
@@ -189,6 +190,10 @@ print(values)
 #Decimal module
 from decimal import Decimal
 
+#Get size of a Python object
+import sys
+a = [10,20,30]
+print(sys.getsizeof(a))
 
 class A:
     def __init__(self,age):
@@ -308,6 +313,136 @@ print(next(g))
 #Find 3 largest and smallest numbers in a list
 
 import heapq
-test_scores = [51, 88, 22, 67, 99, 100, 87, 75]
+test_scores = [51, 88, 22, 67, 99, 100, 87, 75, 100]
 print(heapq.nsmallest(3, test_scores))
 print(heapq.nlargest(3, test_scores))
+
+#Itertools
+for i in itertools.starmap(pow, [(2,5), (3,2), (10,3)]):
+    print(i)
+
+for i in itertools.accumulate([2,3,4,5,6], lambda a,b: a*b):
+    print(i)
+
+
+
+class ABCD:
+    def __int__(self):
+        self.name = 'Nivesh'
+
+    @staticmethod
+    def multiply(a,b):
+       print(a*b)
+
+a =ABCD()
+ABCD.multiply(2,3)
+
+some_string = 'Python'
+some_dict = {}
+for i, some_dict[i] in enumerate(some_string):
+    i = 10
+print(some_dict)
+
+#MultiIndex columns:      use get_level_values()
+import pandas as pd
+
+df = pd.DataFrame({
+    'name': ['Tom', 'James', 'Allan', 'Chris'],
+    'year': ['2000', '2000', '2001', '2001'],
+    'math': [67, 80, 75, 50],
+    'star': [1, 2, 3, 4]
+})
+df_grouped = df.groupby('year').agg(
+    { 'math': ['mean', 'sum'], 'star': 'sum'}
+)
+
+print(df_grouped.columns)
+df_grouped.columns = df_grouped.columns.get_level_values(0)
+print(df_grouped.columns)
+
+#MultiIndex: FLatten columns use: to_flat_index()
+
+import pandas as pd
+
+df = pd.DataFrame({
+    'name': ['Tom', 'James', 'Allan', 'Chris'],
+    'year': ['2000', '2000', '2001', '2001'],
+    'math': [67, 80, 75, 50],
+    'star': [1, 2, 3, 4]
+})
+df_grouped = df.groupby('year').agg(
+    { 'math': ['mean', 'sum'], 'star': 'sum'}
+)
+
+df_grouped.columns = df_grouped.columns.to_flat_index()
+print(df_grouped.columns)
+
+#MultiIndex: Flatten column: join column labels
+
+import pandas as pd
+
+df = pd.DataFrame({
+    'name': ['Tom', 'James', 'Allan', 'Chris'],
+    'year': ['2000', '2000', '2001', '2001'],
+    'math': [67, 80, 75, 50],
+    'star': [1, 2, 3, 4]
+})
+df_grouped = df.groupby('year').agg(
+    { 'math': ['mean', 'sum'], 'star': 'sum'}
+)
+
+df_grouped.columns = ['_'.join(col) for col in df_grouped.columns.values]
+print(df_grouped.columns)
+
+#MultiIndex: Flatten rows: flatten all levels
+#We can simply call reset_index() to flatten every level of the MultiIndex
+
+multi_index = pd.MultiIndex.from_tuples([
+  ('Oxford', 'A', '01-01-2022'),
+  ('Oxford', 'B', '01-01-2022'),
+  ('Oxford', 'A', '02-01-2022'),
+  ('Oxford', 'B', '02-01-2022'),
+  ('London', 'C', '01-01-2022'),
+  ('London', 'D', '01-01-2022'),
+  ('London', 'C', '02-01-2022'),
+  ('London', 'D', '02-01-2022')],
+  names=['Location','Store', 'Date']
+)
+data = {
+  'Num_employee': [1,2,3,4,5,6,7,8],
+  'Sales': [11,22,33,44,55,66,77,88]
+}
+df = pd.DataFrame(data, index=multi_index)
+print(df)
+print(df.reset_index())
+
+print(df.reset_index(level=0))
+print(df.reset_index(level=[1,2]))
+print(df.reset_index(['Store','Date']))
+
+#MultiIndex: flatten rows: join row labels
+
+df.index = ['_'.join(col) for col in df.index.values]
+print(df)
+
+#Metaclasses
+
+PythonClass = type('PythonClass', (), {'start_date': 'August 2018', 'instructor': 'John Doe'})
+PythonClass = type('PythonClass', (DataCamp,), {'start_date': 'August 2018', 'instructor': 'John Doe'})
+
+array = [1,8,15]
+gen = (x for x in array if array.count(x) > 0)
+# print(list(gen))
+array = [2,8,2]
+print(list(gen))
+
+
+import pandas as pd
+
+import numpy as np
+
+ser = {'a' : 1, 'b' : 2, 'c' : 3}
+
+ans = pd.Series(ser)
+
+print(ans)

@@ -18,7 +18,7 @@ if __name__=="__main__":
             if i in final_list:
                 final_list.remove(i)
         temp = i
-    print(final_list)
+    print(test_list)
     op_list = delete_consecutive_duplicate_elements(test_list)
     print("Final list without consecutive duplicate elements is: {}".format(op_list))
 

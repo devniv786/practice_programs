@@ -1,12 +1,12 @@
 import numpy as np
 
 arr = np.arange(1, 17).reshape((4, 4))
-print(arr)
+print(f'Input Array:{arr}')
 output_arr = []
 for i in range(len(arr)-1, -1, -1):
-    print(arr[i])
+    # print(arr[i])
     output_arr.extend(arr[i][::-1])
-print(output_arr)
+print(f'Output Array: {output_arr}')
 
-for i in output_arr:
-    print(int(i), end=",")
+# for i in output_arr:
+#     print(int(i), end=",")
