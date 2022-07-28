@@ -1,0 +1,425 @@
+Sets:
+Unordered collection of unique elements
+Sets are mutable
+Elements in a set must be immutable
+
+To add elements to a set:
+k = {1,2}
+k.add(3)
+k = {1,2,3}
+
+To remove elements from a set:
+
+k.remove(3) - throws error if element is not present
+k.discard(3)- does not throw error if element is missing
+
+PEP 8, the official Style Guide for Python code, says: "Object type comparisons should always use isinstance() instead of comparing types directly.
+
+How to get default encoding:
+import sys
+sys.getdefaultencoding()
+
+Did not understand dealing with binary data.
+
+from contextlib import closing
+
+Organizing Larger Programs:
+
+Packages vs Modules
+
+Packages are generally directories
+Modules are generally files
+
+Package directory paths are stored in __path__ attribute(returns a list), whereas modules do not.
+
+PYTHONPATH:
+
+1.environment variable
+2.contains list of paths added to sys.path
+3.Windows
+	set PYTHONPATH = path1;path2;pathn
+4.Linux/MacOS
+	export PYTHONPATH = path1:path2:pathn
+	
+__init__.py optional in Python 3.3+
+
+filepath = '/app/projects/crd/ca.py'
+os.path.split(filepath): Returns a tuple containing path & filename
+Output: ('/app/projects/crd', 'ca.py')
+
+os.path.splitext(filename)
+Output: ('/app/projects/crd/ca', '.py')
+
+PEP 420: Implicit Namespace Packages
+
+Namespace packages are a mechanism for splitting a single Python package across multiple directories on disk.
+
+Namespace packages may not have a __init__.py
+
+You can execute a directory if it contains __main__.py
+
+__init__.py vs __main__.py ?
+
+__init__.py is automatically called when executing a package
+Python will only execute a package if it contains __main__.py
+
+
+Built vs Source distributions
+
+Built:
+Placed directly into installation directory
+Build results are included in the package
+Can be platform specific
+
+Source:
+Contains everything needed to build the package
+Cannot be placed directly into installation directory
+It is necessary to build the package before installing it
+
+
+Functions & Functional Programming
+
+__call__ :
+
+Allows instances of classes to be callable objects.
+It is invoked on objects when they are called like functions.
+
+Class objects and instances of classes are very different things.
+class binds a class object to a named reference.
+
+callable(): returns True or False whether a function is callable or not
+
+Rules for * args
+1. Must come after positional arguments.
+2. Only collects positional arguments
+
+Incorrect syntax:
+
+def func(**kwargs, *args):
+
+Why positional only arguments ?
+
+Parity with modules implemented in other languages.
+Prevent formal argument names from becoming a part of the API
+	This prevents dependencies on the names
+	Useful when the names have no semantic meanings
+	
+
+Functions which are defined inside other functions are known as local functions.
+
+Scoping rules:
+
+1.Local
+2.Enclosing
+3.Global
+4.Built In
+
+Local functions are not members of their enclosing functions.
+
+CLosure:
+Records objects from enclosing scopes.
+Keeps recorded objects alive for use after the enclosing scope is gone
+Implemented with the __closure__ attribute
+
+global introduces binding from the global scope into another scope.
+
+nonlocal: inserts a name binding from an enclosing scope into the local scope.
+
+Decorators:
+Modify or enhance an existing function in a non intrusive & maintable way.
+A function accepting a function and returning a function.
+Decorators take a callable argument and return a callable.
+
+Classes as Decorators
+We can decorate with a class as long as instances of the class implement __call__.
+
+Instances as Decorators
+Python calls an instances __call__() when its used as a decorator.
+
+Issues with using decorators:
+We loose metadata of the decorated function
+
+functool.wraps()
+Replace decorator metadat with that of the decorated callable.
+It is a decorator that you apply to your wrapper function.
+
+
+Class methods:
+Decorated by classmethod
+Accepts cls as first argument
+Access class attributes via cls
+
+Avoid Circular Dependencies
+Base classes should have no knowledge of subclasses.
+
+Use @staticmethod for methods which need neither the class nor the instance.
+Use @classmethod for methods which need the class but not the instance.
+
+
+String representation of object:
+1. __repr__ : You should always override __repr__ in your classes. It is mainly used for developers.
+2. __str__ : object __str__ invokes __repr__. We need to override __str__ to specialize behaviour. It is used for users, people in user interfaces.
+3. __format__: object __format__ invokes __str__. We need to override __format__ to specialize behaviour.
+
+Its generally necessary to call base class initializers to ensure proper object initialization.
+If a subclass doesn`t define an initializer, then the base class initializer is called during construction.
+
+isinstance(3,(int, float, dict)) -- returns True since 3 is one of the types in the tuple present.
+
+issubclass() - determines if one class is a subclass of another.
+
+Java does not support multiple inheritance. C++ does.
+
+If a class uses multiple inheritance and defines no initializer, only the initializer of the first base class is automatically called.
+
+__mro__ specifies the order of resolution for a class inheriting more than one class. Returns tuple of classes.
+
+__bases__ is a tuple defining the base classes for the class.
+
+Inheritance in Python is best used as a way to share implementation.
+
+Class decorators overlap with the capabilities of meta classes.
+Less powerful than metaclasses but easier to use.
+
+
+Catching everything also catches KeyboardInterrupt.
+Its generally wrong to catch all exceptions.
+
+BaseException is a base class of all exception types.
+Non-system exiting exceptions inherit from Exception.
+
+Exception Payload:
+
+except ValueError as e:
+	print(e.args) --> Prints the payload information
+
+Exception Chaining:
+	
+Chaining associates one exception with another.
+The second exception may be incidental to the first or maybe deliberately raised in response to the first.
+Chaining avoids duplication and can improve diagnostics.
+
+Implicit Chaining:
+Happens when an exception is raised during handling of another.
+Stores the original exception on __context__.
+
+Explicit Chaining:
+Deliberately associate an exception with a new exception at the point of raising the latter
+This occurs when you use raise.....from
+Stores the original exception on __cause__
+
+
+Traceback:
+__traceback__ : Attribute on an exception object that holds a reference to its traceback object.
+traceback: standard library module containing functions for working with traceback objects.
+
+
+Context Manager:
+__enter__: Called on a context manager just before entering the with-block
+The return value is bound to the as-variable.
+
+__exit__:
+Executed after the with-block terminates.
+Handles exceptional exits from the with-block
+It receives the exception type, value and traceback
+The arguments are None when there is no exception.
+Should not re-raise the exception it receives from the with-block
+Should only raise an exception if something goes wrong in the function itself.
+
+contextlib:
+standard library module that provides utilities for common tasks involving the with statement.
+provides the contextmanager decorator
+contextmanager creates context managers from generators
+
+
+globals(): returns methods and attributes available in the global namespace.
+It is a dictionary mapping names to objects in the global namespace.
+
+locals(): returns the local namespace
+
+inspect standard library provides support for advanced introspection.
+inspect.ismodule() determines if an object is a module.
+inspect.getmembers() returns the members of an object.
+
+
+Unittest:
+
+@unittest.skip decorator to skip a test method when using unittest framework.
+
+The three parts of a test:
+1. Arrange: Setup the object to be tested and collaborators
+2. Act: Excercise the unit under test
+3. Assert: Make claims about what happened
+
+Unit test do not find integration or non functional problems
+
+Pytest:
+
+To see list of all pytest fixtures: pytest --fixtures
+
+To see list of markers: python -m pytest --markers
+
+To generate a HTML report for your test cases using pytest use pytest-html
+
+pip install pytest-html
+
+python -m pytest --html=report.html
+
+Doctest
+
+Test Doubles:
+
+Stubs: A stub has the same method as the class it replaces, but the implementation is very simple
+
+
+Code quality:
+
+Imports:
+	1. Should be on seperate lines
+	2. Three groups, seperated by blank lines
+		- Standard library
+		- Third-party libraries
+		- Local application/library
+
+Naming:
+	1. Modules: short, lowercase names
+	2. Classes: CapitalizedNaming
+	3. Functions: lowercase_with_underscores
+	4. Constants: ALL_CAPS
+	5. Non public names start with underscore
+	
+
+Pylint:
+
+pip install pylint
+
+pylint package_name/module_name.py - Lists out all code styles and code smells identified
+
+Generate pylint config file: pylint --generate-rcfile > pylint
+
+Black:
+
+pip install black
+
+black package_name/module_name.py
+
+It will reformat all the files in a particular package or a module.
+
+Documentation:
+
+Sphinx:
+	1. Python document generator
+	2. De-facto standard
+	3. uses restructed text --> can be outputted into HTML, PDF etc.
+
+pip install sphinx
+
+Steps to build documentation:
+	1. First create docs/folder.
+	2. All sphinx commands need to be run from this folder.
+	3. sphinx-quickstart (It will ask a serious of basic questions like project_name, author, language. It will create some directories and files to be used later.)
+	4. make html
+	5. Configuration is stored in conf.py
+	6. For code blocks use::, followed by a blank line
+
+Apidoc:
+	1. Sphinx extension
+	2. Generate docs from Python source
+	3. Needs to be enabled in conf.py
+
+sphinx-apidoc -o docs gamedemo/
+
+
+No need to run sphinx-quickstart
+
+sphinx-apidoc --full -o docs mypackage
+
+Type Hint:
+
+from typing import List, Set, Tuple, Dict
+
+For tuples we specify the types of all elements
+
+a: Tuple[int, str, float] = (1,'Hello', 3.5)
+
+For mappings ,we need the types of both keys and values
+
+x:Dict[str,float] = {'Age':28}
+
+For collections, the name of the type is capitalized and the name of the type inside the collection is in brackets
+
+a: List[int] = [1,2,3]
+a:Set[int] = {6,7}
+
+Rounding in Python3 is Bankers Rounding
+Rounds to nearest even value
+
+Use the math.isclose() when comparing floats
+
+Why care about hashing ?
+
+set, dict and other mapping types care
+Objects must be hashable to used in a set
+Keys used in a mapping type must also be
+
+The hash of a numeric object is the number.
+
+pip install -U pandas - To upgrade pandas package
+
+pip show pandas - to see details of the package
+
+python -m pip install --user pandas - to install pandas in the user directory only and not system wide.
+
+pip list - list all installed packages with their versions.
+
+pip help
+
+How to create a virtual environment:
+python -m venv my_env
+
+Activate virtual environment:
+On Windows: my_env\Scripts\activate.bat
+On Linux: . my_env/bin/activate
+
+Deactivate:
+deactive
+
+The Python Packaging Authority is a working group that maintains many of the relevant projects in Python Packaging.
+
+To get the state of the generator object:
+import inspect
+inspect.getgeneratorstate(generator_object)
+
+To learn more generators:
+http://www.dabeaz.com/finalgenerator/FinalGenerator.pdf
+
+To stop a generator in between:
+
+Use generator_object.close() to close the generator. If we try to perform next(generator_object) then we get StopIteration error.
+
+Generators & coroutines are basically two different concepts.
+
+Generators produce data for iteration.
+
+Coroutines are consumer of data.
+
+
+Metaclasses & Allocation
+
+Inherited __new__ allocates the object which is passed __init__ as self
+
+The ultimate allocator is object.__new__(cls)
+
+Interning: Re-using objects of equal value on demand instead of creating new objects.
+Only use for immutable value types
+
+tracemalloc: Inbuilt Python library to trace memory usage in your Python program
+
+import tracemalloc
+tracemalloc.start()
+_,peak = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+peak_kb = peak / 10 **3
+
+
+attempting to access a member of a list using an index that exceeds the number of members (e.g., attempting to access list[10] in the list above) results in an IndexError. However, attempting to access a slice of a list at a starting index that exceeds the number of members in the list will not result in an IndexError and will simply return an empty list.

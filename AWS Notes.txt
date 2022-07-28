@@ -1,0 +1,426 @@
+AWS Elastic Beanstalk
+
+Automates the process of deploying & sclaing workloads on EC2(PaaS)
+Handles load balancing, provisioning, sclaing and monitoring
+
+Use Cases:
+Deploy an application with minimal knowledge of other services
+Reduce the overall maintenance needed for the application
+
+AWS Lambda
+Enables the running of code without provisioning infrastructure
+Only charged for usage based on execution time
+Enables event driven workflows
+Primary service for serverless architecture
+
+Advantages of AWS Lambda
+Reduced maintenance requirements
+Scales based on demand
+Enables fault tolerance without additional work
+Pricing based on usage
+
+
+AWS Direct Connect
+A cloud service solution that makes it easy to establish a dedicated network connection from your data center to AWS
+
+Amazon Route 53
+Domain name service(DNS)
+Global AWS service
+Highly available
+Enables global resource routing
+
+Amazon Cloud Front
+Content Delivery Network(CDN)
+Enables users to get content from server closest to them
+Supports static & dynamic content
+Utilizes AWS edge location
+Includes advanced security features
+
+Amazon API Gateway
+Fully managed API management service
+Directly integrates with multiple AWS services
+Provides monitoring & metrics on API calls
+Supports VPC & on premise private applications
+
+S3 Storage Classes
+S3 Standard is the default storage class and is used for frequently accessed data.
+S3 Intelligent-Tiering will move your data to the correct storage class based on usage.
+S3 Standard - IA is for infrequently accessed data with standard resilience
+S3 One Zone IA is for infrequently accessed data that is only stored in one AZ
+
+S3 Lifecycle Policies
+Objects in bucket can transition or expire based on criteria
+Transitions can enable objects to move to another storage class based on time
+Expiration can delete objects based on age
+Policies can also factor in versions of a specific object in the bucket
+
+Amazon S3 Glacier
+Designed for archiving of data within S3 as seperate storage classes
+Offers configurable retrieval times
+Can send files directly or through lifecycle rules
+Provides 2 different storage classes:
+	1. S3 Glacier
+	2. S3 Glacier Deep Archive
+	
+
+S3 Glacier													S3 Glacier Deep Archive
+Designed for archival data									Designed for archival data
+90 day minimum duration storage change						180 day minimum duration storage change
+Can be retrieved in either minutes or hours					Can be retrieved in hours
+You pay a retrieval fee per GB retrieved					You pay a retrieval fee per GB retrieved
+Over 5 times less expensive than S3 Standard Storage class	Over 23 times less expensive than S3 Standard Storage class
+
+Amazon Elastic Block Store(EBS)
+Block storage designed to be connected to a single EC2 instance that can scale to support petabytes of data & support multiple volume types based on need.
+Enables redundancy within an AZ
+Allows users to take snapshot of its data
+Offers encryption of its volumes
+
+
+Elastic File System
+Fully managed NFS file system
+Designed for Linux workloads
+Stores data across multiple AZs
+Provides configurable lifecycle data rules
+Supports upto petabyte scale
+Provides two different storage classes:
+	1. Standard
+	2. Infrequent accessed
+
+
+Amazon FSx for Windows File Server
+Fully managed native Windows file system
+Includes native Windows features:
+	SMB Support
+	Active Directory Integration
+	Windows NTFS
+Utilizes SSD drives for low latency
+
+AWS Large Scale Data Transfer Services
+
+1. AWS Snowball : Service to physically migrate petabyte scale data to AWS
+2. AWS Snowmobile : Service to physically migrate exabyte scale data to AWS
+
+Amazon Relational Database Services
+Fully managed service for relational databases
+Handles provisioning, patching, backup & recovery of your database
+Supports deployment across multiple AZs
+Some platforms support read replicas
+Launches into a VPC
+Provides both general purpose SSD & provisioned IOPS SSD drive options
+
+Dynamo DB Use cases
+Scale without excessive maintenance
+Serverless applications
+Implementations where low latency is key
+Data models without BLOB storage
+
+AWS App Integration Services
+
+1. Amazon SNS: 
+	Managed pub/sub messaging service
+	Enables you to create decoupled applications
+	Organize according to topics
+	Integrates with multiple AWS services
+	Provides end user notification services across SMS, email & push notifications
+2. Amazon SQS: 
+	Managed message queue service
+	Enables you to create decoupled & fault tolerant applications
+	Supports upto 256KB data payload
+	Allows messages to be stored upto 14 days
+	Provides two types of queues:
+		- Standard queue
+		- FIFO queue
+3. AWS Step Functions: 
+	Serverless workflow management system
+	Workflows are defined using Amazon State Language
+	
+
+Management & Governance Services
+
+1. AWS CloudTrail
+	Inserts audit trail in an S3 bucket or in CloudWatch logs
+	Logs events in the regions in which they occur
+	Meets many compliance requirements for infrastructure auditing
+	It should be enabled on every AWS account
+	
+	Use Cases:
+	Compliance requirement
+	Forensic analysis
+	Operational analysis
+	Troubleshooting
+
+2. Amazon CloudWatch
+	Provides metrics,logs and alarms for infrastructure
+	Monitoring and management service
+	Enables alarms based on metrics
+	Provides visualization capabilities
+	
+
+3. AWS Config
+	Continually evaluates infrastructure against a set of rules
+	Provides configuration history for infrastructure
+	Provides remediation steps for infrastructure not meeting criteria
+	
+
+4. AWS Systems Manager
+	Provides a unified UI so you can view operational data from multiple AWS services and allows you to automated operational tasks across your AWS resources
+	Enables automation tasks for common maintenance actions
+	Gives a secure way to access servers only using AWS credentials
+	Stores commonly used parameters securely for operational used
+
+
+5. AWS CloudFormation
+	Managed services for provisioning infrastructure based on templates
+	No additional charge
+	Templates can be YAML or JSON
+	Enables infrastructure as a code
+	Manages dependencies between resources
+
+6. AWS OpsWorks
+	Configuration management service
+	Provides managed instances of Chef and Puppet
+	Configuration is defined as code for servers
+	Chef and Puppet manage the lifecycle of those configuration changes with servers
+	Works in a hybrid cloud architecture for both cloud based and on-premise servers
+
+
+AWS Organizations
+	Allows organizations to manage multiple accounts under a single master account
+	Provides organizations with the ability to leverage consolidated billing for all accounts
+	Enables organizations to centralize logging and security standards across accounts
+	
+
+AWS Control Tower
+	A service to create a multi-account environment on AWS that follows the recommended best practices in operational efficency, security and governance.
+	Centralizes users across all accounts
+	Provides a way to create new AWS acounts based on templates
+	Integrates Guardrails for accounts
+	Includes dashboard to gain operational insights from a single view
+
+Secuirty Groups work at the instance level. They are stateful.
+Network Access Control Lists work at the subnet level. They are stateless.
+
+
+
+Security & Architecture on AWS
+
+Acceptable Use Policy
+	Sending unsolicited emails is prohibited
+	Hosting or distributing harmful content is prohibited
+	Penetration tests are allowed for a list of specific services
+
+Least Privilege Access
+	Only provide access to a user to the services he/she will be using
+	Do not use root account for day to day activities
+
+Security and Compliance is a shared responsibility between AWS and the customer
+
+AWS Well Architected Framework is a collection of best practices across five key pillars for how to best create systems that create business value on AWS.
+
+1.Operational Excellence
+	Running & monitoring systems for business value
+
+2.Security
+	Protecting information and business assets
+
+3. Reliability
+	Enabling infrastructure to recover from disruptions
+
+4.Performance Efficiency
+	Using resources effectively to achieve business value
+
+5. Cost Optimization
+	Achieving minimal costs for the desired value
+	
+High Availability & Fault Tolerant
+
+Common Compliance Standards
+
+PCI-DSS: Compliance standard for processing credit cards
+HIPAA: Compliance standard for healthcare data
+SOC1, SOC2, SOC3: Third party review of operational processes
+FedRAMP: Standards for US government data handling
+ISO 27018: Standard for handling personally identifiable information
+
+AWS IAM
+	Services that control access to AWS resources
+	Using the service is free
+	Manages both authentication and authorization
+	Supports identity federation through SAML providers including Active Directory
+
+AWS IAM Identities
+
+Users
+	Account for a single individual to access AWS resources
+Groups
+	Allows you to manage permissions for a group of IAM users
+Roles
+	Enables a user or an AWS service to assume permissions for a task
+
+
+On Premise Data Integration Services
+
+AWS Storage Gateway
+	Hybrid cloud storage service
+	Integrates cloud storage into your local network
+	Integrates with S3 and EBS
+
+
+AWS Datasync
+	Automated data transfer service
+	Leverages the DataSync agent deployed as a VM on your network
+	Integrates with S3,EFS, and FSx for Windows file Server on AWS
+	
+
+Data Processing Services
+
+AWS Glue
+	Fully managed ETL service on AWS
+	Supports data in Amazon RDS, DynamoDB, Redshift and S3
+	Supports a serverless model of execution
+
+Amazon EMR
+	Enables big data processing on Amazon EC2 and S3
+	Support popular open source frameworks and tools
+	Operates in a clustered environment without additional configuration
+	
+AWS Data Pipeline
+	Managed ETL
+	
+
+Data Analysis Services
+
+Amazon Athena
+	Fully managed serverless service
+	Service that enables querying of large scale data stored in Amazon S3
+	Queries are written using standard SQL
+	Charges based on data scanned for query
+
+Amazon Quicksight
+	Fully managed BI service
+	Enables dynamic data dashboard based on data stored in AWS
+	Charged on a per-user and per-session pricing model
+
+Amazon Cloudsearch
+	Fully managed search service on AWS
+	Charged per hour and instance type of search infrastructure
+	Enables developers to search into cloud infrastructure
+	
+
+Disaster Recovery Scenarios
+
+1. Backup and Restore
+2. Pilot Light
+3. Warm Standby
+4. Multi Site
+
+
+Amazon EC2 Horizontal Scaling Services
+
+1.Auto Scaling Group
+	Launch template defines the instance configuration for the group
+	Defines the minimum. maximum and desired number of instances
+	Perfroms health check on each instance
+	Exists within 1 or more availability zones in a single regions
+	Works with on-demand and spot instance
+
+2. AWS Secrets Manager
+	Secure way to integrate credential services, API keys, tokens and other secret content
+	Integrates natively with RDS, DocumentDB and Redshift
+	Can auto rotate credentials with integrated services
+	Enables fine-grained access control to secrets
+	
+Controlling access to EC2 instances
+
+Security in Amazon VPC
+
+Security Groups
+	Serve as a firewall for your EC2 instances
+	Control inbound and outbound traffic
+	Works at the instance level
+	EC2 instances can belong to multiple security groups
+	VPCs have default security groups
+	Must be explicitly associated with an EC2 instance
+	By default, all outbound traffic is allowed
+
+Network ACL
+	Works at the subnet level within a VPC
+	Enables you to allow and deny traffic
+	Each VPC has a default ACL that allows all inbound and outbound traffic
+	Customs ACLs deny all traffic until rules are added
+	
+AWS VPN
+	Creates an encrypted tunnel into your VPC
+	Can be used to connect to your data center or even individual client machines
+	Supported in 2 services:
+		1.Site-to-Site VPN
+		2.Client VPN
+
+Security Services
+
+AWS Shield
+	Provides protetction against DDoS attacks for apps running on AWS
+	Enables on going threat detetction and mitigation
+	Has two different service levels:
+		1. Standard
+		2. Advanced
+	
+Amazom Macie
+	Utilizes ML to analyze data stored in Amazom S3
+	It can detect personal information and intellectual property in S3
+	Provides dashboards that show how the data is being stored and accessed
+	Enables alerts if it detects anything unusual about data access
+
+Amazon Inspector
+	Enables scanning of Amazon EC2 instances for security vulnerabilities
+	Charged by instance per assessment run
+	Two types of rule packages:
+		- Network reachability assessment
+		- Host assessment
+		
+Deploying pre-defined solutions on AWS
+
+AWS Service Catalog
+	Targeted to serve as an organizational service catalog for the cloud
+	Can include single server image to multi-tier applications
+	Enables organizations to leverage services that meet compliance
+	Supports a lifecycle for services released in the catalog
+
+AWS Marketplace
+	Curated catalog of 3rd party solutions for customers to run on AWS
+	Provides AMIs, CloudFormation stacks and SaaS based solutions
+	Enables different pricing options to overcome licensing in the cloud
+	Charges appear on your AWS bill
+	
+AWS Developer Services
+
+	AWS CodeCommit
+		Managed source control service
+		Utilizes GIT for repositories
+		Control access with IAM policies
+		Serves as an alternative to Github and Bitbucket
+	
+	AWS CodeBuild
+		Fully managed build and continuous integration service on AWS
+		Dont have to worry about maintaining infrastructure
+		Charged per minute for compute resources you utilize
+		
+	AWS CodeDeploy
+		Managed deployment service for deploying your custom applications
+		Deploys to Amazon EC2, Amazon FarGate,AWS Lambda and on-premise services
+		Provides dashboards for deployment in the AWS console
+	
+	AWS CodePipeline
+		Fully managed continuous delivery serivce on AWS
+		Provides the capabilities to automate building, testing and  deploying
+		Integrates with other developer tools such as Github
+		
+	AWS CodeStar
+		Workflow tool that automates the use of other developer serivces
+		Creates a complete continuous delivery toolchain for a custom application
+		Provides custom dashboards and configurations in the AWS console
+		You are only charged for the other serivces that you leverage
+		
+		
+https://amazonmr.au1.qualtrics.com/jfe/form/SV_eyBlfVF4Sloz1zL?CPEPowerHour=APR21IntroAWSCloud

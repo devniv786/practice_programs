@@ -1,0 +1,7 @@
+Throughput Optimized HDD
+
+1. For faster data reads measured in max throughput per volume.
+
+ The only advantage of having a SQS in between SNS and Lambda is Reprocessing. Assume that the Lambda fails to process certain event for some reason (e.g. timeout or lack of memory footprint), you can increase the timeout (to max 5 minutes) or memory (to max of 1.5GB) and restart your polling and you can reprocess the older events. This would not be possible in case of SNS to Lambda, wherein if Lambda fails the event is lost.
+ 
+ SQS: The entire service is based on sending messages to the queue and allowing for applications (ex. ECS containers, Lambda functions) to poll for messages and process them. The message stays in the queue until some application picks it up, processes it, and deletes the message when it’s done. When people say Kinesis, they typically refer to Kinesis Data Streams — a service allowing to process large amounts of streaming data in near real-time by leveraging producers and consumers opera

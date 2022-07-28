@@ -1,0 +1,110 @@
+Auto Scaling Group: Rules for automatically scaling EC2 instances up and down.
+
+Use EC2 for scaling Amazon Machine Image(AMI) and Use Elastic Beanstalk for scaling applications.
+
+EC2 instances are charged by the hour.
+
+S3 Pricing Structure(Prices differ per region)
+1.Amount of data stored
+2.Number of requests made to object
+3.Amount of data transferred
+
+RDS
+
+Managed Database Aspects
+
+Scheduled automatic backups
+Simple software updates
+Managed infrastructure
+
+RDS Pricing Structure
+1.Type of Database
+2.Region
+3.EC2 Instance Type
+
+Elastic Beanstalk:
+
+Application versions are stored in S3
+Each application has a limit of 1000
+
+It is a free service, you only pay for the EC2 instances, load balancers and S3 separately.
+
+Lambda:
+
+Only pay when your code is running.
+Pay for no. of requests
+
+DynamoDB:
+
+Provisioned Throughput Capacity: Number of read/write units per second.
+
+Virtual Private Cloud:
+1.Configure VPC routing tables
+2.Use NAT gateways for outbound traffic
+3.Internal IP address allocation
+
+VPC Security:
+1.Routing Table: Control what goes where
+2.Network ACL: Control who can come & go.
+
+
+
+
+AWS CLI Command:
+
+aws ec2 describe-instances : To list all EC2 instances for your account.
+
+
+CloudWatch: Service to set alarms based on service metric threshold.
+Examples: EC2 CPU Usage, DynamoDB Read/Write Throughput, Estimated Billing Charges
+
+
+Security groups: Defines allowed incoming/outgoing IP addresses and ports.
+
+Maximum of 5 VPC`s on one account.
+
+Amazon Machine Image: Operating system and software installed on an EC2 instance.
+
+Elastic IP: Public IP addresses that are created, destroyed and assigned independently.
+
+Load Balancer: Routing appliance that maintains a consistent DNS entry and balances requests to multiple instances.
+
+CloudFront is the best way to solve geographic latency.
+
+AWS Budget: Alerts you when your AWS resource charges reach a certain amount.
+
+EC2 Instance File System Types:
+
+1. Instance Store: Physically connected, basic hard drives
+2. Elastic Block Store: Independent, networked volume
+3. Elastic File System: Scalable, independent, networked volume
+
+
+
+
+AWS Kinesis
+
+Realtime:
+Enables you to ingest, buffer and process streaming data in real-time so you can derive insights in seocnds or minutes instead of hours or days.
+
+AWS Managed Service:
+It is fully managed and runs your streaming applications without requiring you to manage any infrastructure.
+
+Scalable:
+Can handle any amount of streaming data and process data from hundreds of thousands of sources with very low latencies.
+
+Producer:
+It puts records into Amazon Kinesis Data Streams . For example, a web server sending log data to a stream is a producer.
+
+Retention Period:
+The length of time that data records are accessible after they are added to the stream. A stream`s retention period is set to a default of 24hrs after creation,
+You can increase the retention period upto 8760 hours(365 days)
+
+Partition Key:
+It is used to group data by shared within a stream.
+
+Sequence Number:
+Each data record has a sequence number that is unique per partition key within its shard.
+
+Consumer:
+It gets records from Amazon Kinesis Data Streams and process them.

@@ -1,0 +1,47 @@
+The unittest module can be used from the command line to run tests from modules, classes or even individual test methods:
+
+python -m unittest test_module1 test_module2
+python -m unittest test_module.TestClass
+python -m unittest test_module.TestClass.test_method
+
+You can pass in a list with any combination of module names, and fully qualified class or method names.
+
+Test modules can be specified by file path as well:
+
+python -m unittest tests/test_something.py
+
+This allows you to use the shell filename completion to specify the test module. The file specified must still be importable as a module. The path is converted to a module name by removing the ‘.py’ and converting path separators into ‘.’. If you want to execute a test file that isn’t importable as a module you should execute the file directly instead.
+
+You can run tests with more detail (higher verbosity) by passing in the -v flag:
+
+python -m unittest -v test_module
+
+For a list of all the command-line options:
+
+python -m unittest -h
+
+To prevent pre-commit from checking a certain commit, add --no-verify to git commit:
+git commit -m "Test" --no-verify
+
+To make a requirements.txt for your project.
+
+pip install pipreqs
+pipreqs /path_to_project_folder
+
+
+An abstract class can be considered as a blueprint for other classes. 
+It allows you to create a set of methods that must be created within any child classes built from the abstract class. 
+A class which contains one or more abstract methods is called an abstract class. 
+An abstract method is a method that has a declaration but does not have an implementation.
+
+How Abstract Base classes work : 
+By default, Python does not provide abstract classes. 
+Python comes with a module that provides the base for defining Abstract Base classes(ABC) and that module name is ABC. 
+ABC works by decorating methods of the base class as abstract and then registering concrete classes as implementations of the abstract base. 
+A method becomes abstract when decorated with the keyword @abstractmethod
+
+Abstract Class Instantiation : 
+Abstract classes are incomplete because they have methods that have nobody. 
+If python allows creating an object for abstract classes then using that object if anyone calls the abstract method, but there is no actual implementation to invoke. So we use an abstract class as a template and according to the need, we extend it and build on it before we can use it. 
+Due to the fact, an abstract class is not a concrete class, it cannot be instantiated. When we create an object for the abstract class it raises an error. 
+

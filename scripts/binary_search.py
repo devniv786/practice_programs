@@ -47,5 +47,5 @@ def binary_search(num_list, element):
 
     return -1 #print("Element is not in the list")
 
-index = binary_search(sorted([14,13,12,11,10,9,8]), 20)
+index = binary_search(sorted([14,13,12,11,10,9,8]), 11)
 print(index)

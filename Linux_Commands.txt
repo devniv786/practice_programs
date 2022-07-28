@@ -1,0 +1,29 @@
+Linux Commands:
+
+To display all files in a directory with properties:
+ls -l
+
+To check for ram usage:
+free
+
+To check OS version of Linux:
+hostnamectl
+uname -c
+
+To find process IDs of firefox running:
+pidof firefox
+
+To kill all firefox processes:
+kill $(pidof firefox)
+
+Firefox version:
+firefox -v
+
+To exit VI editor without saving:
+:q!
+
+To exit VI editor with saving:
+:wq
+
+To remove a file:
+rm filename
